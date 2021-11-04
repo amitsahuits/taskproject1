@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    <div class="card card0 border-0">
+        <div class="row d-flex">
+            <div class="col-lg-6">
+                <div class="card1 pb-5">
+                    <div class="row"> <img src="https://i.imgur.com/CXQmsmF.png" class="logo"> </div>
+                    <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="https://i.imgur.com/uNGdWHi.png" class="image"> </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card2 card border-0 px-4 py-5">
+                    <div class="row mb-4 px-3 text-center">
+                        <h2 class="mb-0 mr-4 mt-2">Register</h2>
+                    </div>
+                    
+                        {% if messages %}
+                        {% for message in messages %}
+                            <p {%if message.tags%} class="alert alert-{{message.tags}}" {% endif %}>{{message}}</p>
+                        {% endfor %}
+                        {% endif %}
+
+
+                    <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        {% for fm in form %}
+                        <div class="form-group my-3">
+                            {{fm.label_tag}} {{fm}} <small class="text-warning"> {{fm.errors|striptags}} </small>
+                        </div>
+                        {% endfor %}
+
+                        <input type="submit" class="btn btn-primary" value="Register">
+
+
+                        <!--for non field error means, error of wrong id and password entered-->
+                        {% if form.non_field_errors %}
+                            {% for error in form.non_field_errors %}
+                                <p class="alert alert-danger my-3">{{error}}</p>
+                                
+                            {% endfor %}        
+                        {% endif %}
+                    </form>
+
+
+                    <div class="row mb-4 px-3"> <small class="font-weight-bold">Already have an account? <a class="text-danger" href="{% url 'login' %}">Login</a></small> </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-blue py-4">
+                <div class=" social-contact ml-4 ml-sm-auto"> <span class="fa fa-facebook mr-4 text-sm"></span> <span class="fa fa-google-plus mr-4 text-sm"></span> <span class="fa fa-linkedin mr-4 text-sm"></span> <span class="fa fa-twitter mr-4 mr-sm-5 text-sm"></span> </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
